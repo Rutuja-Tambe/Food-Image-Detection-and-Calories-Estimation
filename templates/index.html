@@ -1,0 +1,563 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Image Detection and Calorie Estimation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        #uploadedImage {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Food Image Detection and Calorie Estimation</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+        <div class="result" id="result"></div>
+        <img id="uploadedImage" src="" alt="Uploaded Image">
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var fileInput = document.getElementById('fileInput');
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                var uploadedImage = document.getElementById('uploadedImage');
+
+                if (data.error) {
+                    resultDiv.textContent = data.error;
+                    uploadedImage.src = '';  // Clear any previously uploaded image
+                } else {
+                    resultDiv.innerHTML = `<strong>Item:</strong> ${data.item}<br><strong>Calories:</strong> ${data.calories}`;
+                    uploadedImage.src = data.image;  // Display uploaded image
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'An error occurred while uploading the file.';
+                var uploadedImage = document.getElementById('uploadedImage');
+                uploadedImage.src = '';  // Clear any uploaded image on error
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Image Detection and Calorie Estimation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+        }
+        #uploadedImage {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Food Image Detection and Calorie Estimation</h1>
+    <div class="container">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+        <div class="result" id="result"></div>
+        <img id="uploadedImage" src="" alt="Uploaded Image">
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var fileInput = document.getElementById('fileInput');
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                var uploadedImage = document.getElementById('uploadedImage');
+
+                if (data.error) {
+                    resultDiv.textContent = data.error;
+                    uploadedImage.src = '';  // Clear any previously uploaded image
+                } else {
+                    resultDiv.innerHTML = `<strong>Item:</strong> ${data.item}<br><strong>Calories:</strong> ${data.calories}`;
+                    uploadedImage.src = data.image;  // Display uploaded image
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'An error occurred while uploading the file.';
+                var uploadedImage = document.getElementById('uploadedImage');
+                uploadedImage.src = '';  // Clear any uploaded image on error
+            });
+        });
+    </script>
+</body>
+</html> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Image Detection and Calorie Estimation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://i.imgur.com/SBj8PDE.jpeg') no-repeat center center / cover;
+            margin: 50;
+            padding: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+        }
+        #uploadedImage {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Food Image Detection and Calorie Estimation</h1>
+    <div class="container">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+        <div class="result" id="result"></div>
+        <img id="uploadedImage" src="" alt="Uploaded Image">
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var fileInput = document.getElementById('fileInput');
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                var uploadedImage = document.getElementById('uploadedImage');
+
+                if (data.error) {
+                    resultDiv.textContent = data.error;
+                    uploadedImage.src = '';  
+                } else {
+                    resultDiv.innerHTML = `<strong>Item:</strong> ${data.item}<br><strong>Calories:</strong> ${data.calories}`;
+                    uploadedImage.src = data.image;  
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'An error occurred while uploading the file.';
+                var uploadedImage = document.getElementById('uploadedImage');
+                uploadedImage.src = '';  
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Image Detection and Calorie Estimation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.imgur.com/SBj8PDE.jpeg') no-repeat center center / cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+        }
+        #uploadedImage {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>Food Image Detection and Calorie Estimation</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+        <div class="result" id="result"></div>
+        <img id="uploadedImage" src="" alt="Uploaded Image">
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var fileInput = document.getElementById('fileInput');
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                var uploadedImage = document.getElementById('uploadedImage');
+
+                if (data.error) {
+                    resultDiv.textContent = data.error;
+                    uploadedImage.src = '';  
+                } else {
+                    resultDiv.innerHTML = `<strong>Item:</strong> ${data.item}<br><strong>Calories:</strong> ${data.calories}`;
+                    uploadedImage.src = data.image;  
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'An error occurred while uploading the file.';
+                var uploadedImage = document.getElementById('uploadedImage');
+                uploadedImage.src = '';  
+            });
+        });
+    </script>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Image Detection and Calorie Estimation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .background {
+            background-image: url('download.jpeg');
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 80%;
+            position: relative;
+            z-index: 1;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+        }
+        #uploadedImage {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>Food Image Detection and Calorie Estimation</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+        <div class="result" id="result"></div>
+        <img id="uploadedImage" src="" alt="Uploaded Image">
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var fileInput = document.getElementById('fileInput');
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                var uploadedImage = document.getElementById('uploadedImage');
+
+                if (data.error) {
+                    resultDiv.textContent = data.error;
+                    uploadedImage.src = '';  
+                } else {
+                    var detectedLabelsHtml = data.detected_labels.map(label => `<li>${label}</li>`).join('');
+                    resultDiv.innerHTML = `<strong>Detected Labels:</strong> <ul>${detectedLabelsHtml}</ul><strong>Total Calories:</strong> ${data.total_calories}`;
+                    uploadedImage.src = data.image;  
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'An error occurred while uploading the file.';
+                var uploadedImage = document.getElementById('uploadedImage');
+                uploadedImage.src = '';  
+            });
+        });
+    </script>
+</body>
+</html>
